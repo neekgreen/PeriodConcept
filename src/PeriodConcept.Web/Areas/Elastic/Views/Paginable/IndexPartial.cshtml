@@ -1,0 +1,26 @@
+﻿@model PeriodConcept.Web.Areas.Elastic.Models.Paginable.IndexViewModel
+
+<div class="row">
+    <div class="col-md-10">
+        
+    </div>
+    <div class="col-md-2">
+        @Html.Partial("ItemCountPerPagePartial", Model)
+    </div>
+</div>
+
+<nav>
+    @Html.Partial("PaginableSummaryPartial", Model.Periods)
+</nav>
+
+<div id="paginable" data-page-number="@Model.PageNumber">
+    @foreach (var period in Model.Periods)
+    {
+        @Html.Partial("PeriodPartial", period)
+    }
+</div>
+
+<nav>
+    @Html.Partial("PaginableSummaryPartial", Model.Periods)
+    @Html.Partial("PaginablePartial", Model.Periods)
+</nav>

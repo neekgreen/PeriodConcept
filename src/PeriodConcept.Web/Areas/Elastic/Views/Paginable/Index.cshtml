@@ -1,0 +1,65 @@
+﻿@model PeriodConcept.Web.Areas.Elastic.Models.Paginable.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Database Result</h2>
+
+<div id="paginable-content">
+    
+</div>
+
+@Html.Partial("LoadingModalPartial")
+
+@section scripts
+{
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //# paginable interactions
+        $(document).on("click", ".page-number", function (e) {
+
+            var target = $(e.target || e.srcElement);
+            var pageNumber = target.data("page-number");
+            var itemCountPerPage = $("#item-count-per-page").val();
+
+            getPaginable(pageNumber, itemCountPerPage);
+            return false;
+        });
+
+        $(document).on("change", ".item-count-per-page", function (e) {
+
+            var target = $(e.target || e.srcElement);
+            var itemCountPerPage = target.val();
+            var pageNumber = 1;
+
+            getPaginable(pageNumber, itemCountPerPage);
+            return false;
+        });
+
+        getPaginable(@Model.PageNumber, @Model.ItemCountPerPage);
+    });
+
+    function getPaginable(pageNumber, itemCountPerPage) {
+
+        $("#modal").modal("show");
+        var request = $.ajax(
+        {
+            url: "@Url.Action("IndexPartial")",
+            type: "GET",
+            data: { pageNumber: pageNumber, itemCountPerPage: itemCountPerPage },
+            dataType: "html",
+            cache: false,
+            async: true
+        });
+
+        request.done(function (data) {
+            $("#paginable-content").html(data);
+            window.scrollTo(0,0);
+
+            $("#modal").modal("hide");
+        });
+    }
+
+</script>
+}

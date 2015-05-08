@@ -1,0 +1,20 @@
+﻿@model PeriodConcept.Web.Models.PeriodViewModel
+
+@if (Model.Period.DateFrom.DayOfWeek == DayOfWeek.Saturday || Model.Period.DateFrom.DayOfWeek == DayOfWeek.Sunday)
+{
+    <div class="bs-callout bs-callout-info">
+        <h4>@Model.Period.DateFrom.ToLongDateString()</h4>
+        <div>
+            @Model.Period.PeriodID
+        </div>
+    </div>
+}
+else
+{
+    <div class="bs-callout bs-callout-success">
+        <h4>@Model.Period.DateFrom.ToLongDateString()</h4>
+        <div>
+            @Model.Period.PeriodID
+        </div>
+    </div>
+}

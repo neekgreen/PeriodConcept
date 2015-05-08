@@ -1,0 +1,57 @@
+﻿@model IPaginable
+@{
+    const int MaximumPageNumbersToDisplay = 10;
+
+    var firstPageToDisplay = 1;
+    var lastPageToDisplay = Model.TotalPageCount;
+    var pageNumbersToDisplay = lastPageToDisplay;
+
+    if (Model.TotalPageCount > MaximumPageNumbersToDisplay)
+    {
+        var maxPageNumbersToDisplay = MaximumPageNumbersToDisplay;
+        firstPageToDisplay = Model.PageNumber - maxPageNumbersToDisplay / 2;
+        if (firstPageToDisplay < 1)
+        {
+            firstPageToDisplay = 1;
+        }
+        pageNumbersToDisplay = maxPageNumbersToDisplay;
+        lastPageToDisplay = firstPageToDisplay + pageNumbersToDisplay - 1;
+        if (lastPageToDisplay > Model.TotalPageCount)
+        {
+            firstPageToDisplay = Model.TotalPageCount - maxPageNumbersToDisplay + 1;
+        }
+    }
+}
+
+    <ul class="pagination">
+
+        @if (Model.PageNumber > 1)
+        {
+            <li>
+                <a class="page-number" href="#" aria-label="Previous" data-page-number="@(Model.PageNumber - 1)">
+                    &laquo;
+                </a>
+            </li>
+        }
+
+        @for (int i = firstPageToDisplay; i <= firstPageToDisplay + pageNumbersToDisplay - 1; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+                <li class="active"><a href="#">@i</a></li>
+            }
+            else
+            {
+                <li><a class="page-number" href="#" data-page-number="@i">@i</a></li>
+            }
+        }
+
+        @if (lastPageToDisplay != Model.TotalPageCount)
+        {
+            <li>
+                <a class="page-number" href="#" aria-label="Next" data-page-number="@(Model.PageNumber + 1)">
+                    &raquo;
+                </a>
+            </li>
+        }
+    </ul>

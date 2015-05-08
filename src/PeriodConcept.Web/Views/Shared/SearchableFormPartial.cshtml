@@ -1,0 +1,7 @@
+﻿@model PeriodConcept.Web.Models.ISearchableViewModel
+
+<form class="form-inline" method="post" action="@Url.Action("IndexPartial")">
+    @Html.TextBoxFor(t => t.QueryText, new { @class = "form-control", id = "query-text", placeholder = "Enter search text..." })
+    <button id="query-button" class="btn btn-primary" type="submit">Search</button>
+    <button id="reset-button" class="btn btn-default" type="button">Reset</button>
+</form>

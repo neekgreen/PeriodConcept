@@ -1,0 +1,28 @@
+﻿@model PeriodConcept.Web.Models.PeriodViewModel
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Update Client</h3>
+        </div>
+        <div class="modal-body">
+            <form id="dialogForm" action='@Url.Action("Update")' method="post" role="form" data-rowkey="@Model.Period.PeriodID">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "The application encountered following error(s):")
+                @*@Html.HiddenFor(m => m.ClientAccountKey)
+                @Html.FormBlock(m => m.CommonName)
+                @Html.FormBlock(m => m.DomainName)*@
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default">Close</button>
+            <button id="submit" class="btn btn-primary">Update</button>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/bundles/modal")*@
